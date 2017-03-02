@@ -21,7 +21,7 @@ public class DemoApplication {
 	@Bean
 	CommandLineRunner init(UserRepository userRepository) {
 		return evt ->
-			Stream.of("sodemir,dsyer,pwebb,ogierke,rwinch,mfisher,mpollack,jlong")
+			Stream.of("sodemir,test user,dsyer,pwebb,ogierke,rwinch,mfisher,mpollack,jlong")
 					.forEach(name -> userRepository.save(new User(name)));
 	}
 
