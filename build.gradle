@@ -1,0 +1,69 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.3.RELEASE'
+	}
+	repositories {
+		maven {
+			url("https://plugins.gradle.org/m2/")
+		}
+	}
+	dependencies {
+        classpath 'org.springframework:springloaded:1.2.6.RELEASE'
+	}
+}
+
+
+plugins {
+	id 'java'
+	id 'eclipse'
+	id 'idea' //makes idea sync with gradle build
+	id 'org.springframework.boot' version '1.4.3.RELEASE' //spring.boot gradle plugin, enables tasks such as bootRun
+
+    //lombok gradle plugin, to make lombok play nicely with gradle
+    // idea doesnt see lombok post processing results, in order to achieve that, idea lombok plugin is required
+    id 'io.franzbecker.gradle-lombok' version '1.8'
+}
+
+
+//idea plugin configuration
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+}
+
+
+jar {
+	baseName = 'demo'
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+	maven {
+		url("https://plugins.gradle.org/m2/")
+	}
+}
+
+
+dependencies {
+
+	compile('org.springframework.boot:spring-boot-starter-jetty')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-data-rest')
+	compile('org.springframework.boot:spring-boot-starter-hateoas')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile("joda-time:joda-time:2.4")
+	compile("org.jadira.usertype:usertype.jodatime:2.0.1")
+	runtime('org.hsqldb:hsqldb')
+	compileOnly('org.projectlombok:lombok')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+configurations {
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
